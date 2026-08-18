@@ -1,0 +1,215 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "last_updated": "2026-08-18",
+    "scope": "San Pedro, Buenos Aires",
+    "coverage_areas": ["TEA", "discapacidad motriz"],
+    "data_status": "draft"
+  },
+  "institutions": [
+    {
+      "id": "escuela-especial-501-hena-yanzon",
+      "name": "Escuela Especial Nº501 \"Hena Yanzon\"",
+      "type": "escuela-primaria",
+      "specialties": ["tea", "discapacidad-motriz", "educacion-especial"],
+      "age_range": { "min": 0, "max": 12 },
+      "address": {
+        "street": "Reinaldo Ansaloni 845",
+        "neighborhood": null,
+        "city": "San Pedro",
+        "postal_code": "2930",
+        "coordinates": null
+      },
+      "contact": { 
+        "phone": "03329 42-9185", 
+        "email": "escuela501@redsp.com.ar" 
+      },
+      "coverage": { 
+        "cud": "yes", 
+        "accepted_plans": ["IOMA", "Desconocido"] 
+      },
+      "accessibility": { 
+        "wheelchair_ramp": false, 
+        "adapted_bathroom": false, 
+        "elevator": false, 
+        "signage_simplified": false 
+      },
+      "verification": { 
+        "status": "pending", 
+        "verified_at": "2026-08-18", 
+        "source": "Búsqueda web", 
+        "notes": "A verificar telefónicamente" 
+      }
+    },
+    {
+      "id": "escuela-especial-502-ernesto-tettamanti",
+      "name": "Escuela Especial Nº502 \"Ernesto Tettamanti\"",
+      "type": "escuela-primaria",
+      "specialties": ["tea", "discapacidad-motriz", "educacion-especial"],
+      "age_range": { "min": 0, "max": 12 },
+      "address": {
+        "street": "Avda. Sarmiento 1001",
+        "neighborhood": null,
+        "city": "San Pedro",
+        "postal_code": "2930",
+        "coordinates": null
+      },
+      "contact": { 
+        "phone": "Desconocido", 
+        "email": null 
+      },
+      "coverage": { 
+        "cud": "yes", 
+        "accepted_plans": ["IOMA", "Desconocido"] 
+      },
+      "accessibility": { 
+        "wheelchair_ramp": false, 
+        "adapted_bathroom": false, 
+        "elevator": false, 
+        "signage_simplified": false 
+      },
+      "verification": { 
+        "status": "pending", 
+        "verified_at": "2026-08-18", 
+        "source": "Búsqueda web", 
+        "notes": "A verificar telefónicamente" 
+      }
+    },
+    {
+      "id": "consultorios-emij",
+      "name": "Consultorios EMIJ",
+      "type": "centro-educativo-terapeutico",
+      "specialties": ["tea", "discapacidad-motriz", "estimulacion-temprana", "fonoaudiologia"],
+      "age_range": { "min": 0, "max": 12 },
+      "address": {
+        "street": "Almafuerte 530",
+        "neighborhood": null,
+        "city": "San Pedro",
+        "postal_code": "2930",
+        "coordinates": null
+      },
+      "contact": { 
+        "phone": "03329 43-8701", 
+        "email": "consultoriosemij@hotmail.com" 
+      },
+      "coverage": { 
+        "cud": "unknown", 
+        "accepted_plans": ["IOMA", "Desconocido"] 
+      },
+      "accessibility": { 
+        "wheelchair_ramp": false, 
+        "adapted_bathroom": false, 
+        "elevator": false, 
+        "signage_simplified": false 
+      },
+      "verification": { 
+        "status": "pending", 
+        "verified_at": "2026-08-18", 
+        "source": "Búsqueda web", 
+        "notes": "Centro registrado en REFES. A verificar si la cobertura de CUD está activa." 
+      }
+    },
+    {
+      "id": "hospital-privado-sadiv",
+      "name": "Hospital Privado Sadiv",
+      "type": "centro-educativo-terapeutico",
+      "specialties": ["tea", "discapacidad-motriz", "estimulacion-temprana", "fonoaudiologia"],
+      "age_range": { "min": 0, "max": 12 },
+      "address": {
+        "street": "Av. Sarmiento 2795",
+        "neighborhood": null,
+        "city": "San Pedro",
+        "postal_code": "2930",
+        "coordinates": null
+      },
+      "contact": { 
+        "phone": "03329 43-1700", 
+        "email": "info@hpsadiv.com" 
+      },
+      "coverage": { 
+        "cud": "yes", 
+        "accepted_plans": ["IOMA", "Desconocido"] 
+      },
+      "accessibility": { 
+        "wheelchair_ramp": true, 
+        "adapted_bathroom": true, 
+        "elevator": true, 
+        "signage_simplified": false 
+      },
+      "verification": { 
+        "status": "pending", 
+        "verified_at": "2026-08-18", 
+        "source": "Búsqueda web", 
+        "notes": "Convenio IOMA, rehabilitación y kinesiología" 
+      }
+    },
+    {
+      "id": "sadiv-centro-dia",
+      "name": "Sadiv Centro de Día Discapacidad",
+      "type": "centro-educativo-terapeutico",
+      "specialties": ["tea", "discapacidad-motriz", "estimulacion-temprana"],
+      "age_range": { "min": 0, "max": 12 },
+      "address": {
+        "street": "Gral. M. Belgrano 675",
+        "neighborhood": null,
+        "city": "San Pedro",
+        "postal_code": "2930",
+        "coordinates": null
+      },
+      "contact": { 
+        "phone": "Desconocido", 
+        "email": null 
+      },
+      "coverage": { 
+        "cud": "unknown", 
+        "accepted_plans": ["Desconocido"] 
+      },
+      "accessibility": { 
+        "wheelchair_ramp": false, 
+        "adapted_bathroom": false, 
+        "elevator": false, 
+        "signage_simplified": false 
+      },
+      "verification": { 
+        "status": "pending", 
+        "verified_at": "2026-08-18", 
+        "source": "Búsqueda web", 
+        "notes": "Teléfono incompleto en fuentes online. A verificar." 
+      }
+    },
+    {
+      "id": "hospital-municipal-san-pedro",
+      "name": "Hospital Subzonal General San Pedro",
+      "type": "organismo-publico",
+      "specialties": ["tea", "discapacidad-motriz", "estimulacion-temprana", "fonoaudiologia"],
+      "age_range": { "min": 0, "max": 12 },
+      "address": {
+        "street": "25 de Mayo 1901",
+        "neighborhood": null,
+        "city": "San Pedro",
+        "postal_code": "2930",
+        "coordinates": null
+      },
+      "contact": { 
+        "phone": "03329 42-5207", 
+        "email": null 
+      },
+      "coverage": { 
+        "cud": "yes", 
+        "accepted_plans": ["IOMA", "Desconocido"] 
+      },
+      "accessibility": { 
+        "wheelchair_ramp": false, 
+        "adapted_bathroom": false, 
+        "elevator": false, 
+        "signage_simplified": false 
+      },
+      "verification": { 
+        "status": "pending", 
+        "verified_at": "2026-08-18", 
+        "source": "Búsqueda web", 
+        "notes": "Medicina pública municipal" 
+      }
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+/* Tokens de paleta — "Inclusivo y Calmo": salud moderna, minimalista.
+   Sin bordes duros ni sombras duras: blancos cálidos, acento teal médico. */
+@theme {
+  --font-sans: "Nunito", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Nunito", ui-sans-serif, system-ui, sans-serif;
+
+  --color-paper: #f8fafc;      /* slate-50  — fondo general */
+  --color-paper-dark: #f1f5f9; /* slate-100 — superficies secundarias */
+  --color-accent: #0d9488;     /* teal-600  — acento calmo y médico */
+  --color-ink: #0f172a;        /* slate-900 — textos principales */
+}

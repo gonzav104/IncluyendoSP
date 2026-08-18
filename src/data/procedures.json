@@ -1,0 +1,302 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "last_updated": "2026-08-18",
+    "disclaimer": "Los trámites pueden cambiar. Verificá siempre en la fuente oficial antes de iniciar."
+  },
+  "procedures": [
+    {
+      "id": "cud",
+      "title": "Certificado Único de Discapacidad (CUD)",
+      "summary": "El CUD es la llave para acceder a cobertura de terapias, integración escolar, transporte y más. Se tramita ante la ANDIS.",
+      "category": "salud",
+      "audience": "Familias de niños/as con TEA o discapacidad motriz de 0 a 12 años",
+      "depends_on": [],
+      "requirements": [
+        { "document": "DNI del niño/a", "detail": "Original y fotocopia", "required": true },
+        { "document": "Certificado médico actualizado", "detail": "Con diagnóstico y fecha reciente (detalle a verificar)", "required": true },
+        { "document": "Estudios / informes complementarios", "detail": "Neurológico, psicológico u otros según el caso", "required": false }
+      ],
+      "steps": [
+        {
+          "order": 1,
+          "title": "Reuní la documentación",
+          "description": "DNI, certificado médico e informes.",
+          "where": "En tu casa",
+          "duration": "1 semana"
+        },
+        {
+          "order": 2,
+          "title": "Iniciá el trámite",
+          "description": "Se solicita ante la ANDIS / junta evaluadora. (Detalle del circuito local de San Pedro a completar en relevamiento)",
+          "where": "ANDIS (argentina.gob.ar/andis) — VERIFICAR circuito local",
+          "duration": "—"
+        },
+        {
+          "order": 3,
+          "title": "Turno con la junta evaluadora",
+          "description": "Evaluación interdisciplinaria del niño/a.",
+          "where": "Sede/junta asignada (a relevar en San Pedro)",
+          "duration": "—"
+        },
+        {
+          "order": 4,
+          "title": "Emiten el certificado",
+          "description": "El CUD se emite digital. Vigencia a confirmar en la normativa vigente.",
+          "where": "—",
+          "duration": "Variable"
+        }
+      ],
+      "estimated_time": "Variable (verificar)",
+      "validity": "A confirmar — depende del diagnóstico (revisar normativa ANDIS vigente)",
+      "official_links": [
+        {
+          "label": "ANDIS — Certificado Único de Discapacidad",
+          "url": "https://www.argentina.gob.ar/andis",
+          "entity": "ANDIS"
+        }
+      ],
+      "local_contacts": [
+        {
+          "entity": "ANSES / UDAI San Pedro (a confirmar)",
+          "description": "Suele orientar sobre el inicio del trámite",
+          "phone": "a relevar"
+        }
+      ],
+      "last_reviewed_at": "2026-08-18",
+      "keywords": ["cud", "certificado", "discapacidad", "andis", "junta evaluadora"]
+    },
+    {
+      "id": "integracion-escolar",
+      "title": "Integración escolar (maestro/a de apoyo)",
+      "summary": "Guía para solicitar acompañamiento en la escuela (maestro/a integrador/a) para niños/as con CUD.",
+      "category": "educacion",
+      "audience": "Familias de niños/as con TEA o discapacidad motriz en edad escolar",
+      "depends_on": ["cud"],
+      "requirements": [
+        { "document": "CUD vigente", "detail": "Es requisito previo en la mayoría de los casos", "required": true },
+        { "document": "Informe pedagógico/psicológico", "detail": "Aportado por el equipo tratante", "required": true }
+      ],
+      "steps": [
+        {
+          "order": 1,
+          "title": "Tener el CUD vigente",
+          "description": "Sin CUD no se puede avanzar.",
+          "where": "Ver trámite 'cud'",
+          "duration": "—"
+        },
+        {
+          "order": 2,
+          "title": "Solicitarlo en la escuela",
+          "description": "A través del Equipo de Orientación Escolar (EOE).",
+          "where": "Escuela del niño/a",
+          "duration": "—"
+        },
+        {
+          "order": 3,
+          "title": "Presentar la documentación",
+          "description": "CUD + informes ante el EOE / servicio de educación especial.",
+          "where": "Escuela",
+          "duration": "—"
+        },
+        {
+          "order": 4,
+          "title": "Se define el PPI",
+          "description": "Proyecto Pedagógico Individual: qué apoyo, horas y quién lo brinda.",
+          "where": "Escuela + familia + equipo tratante",
+          "duration": "—"
+        }
+      ],
+      "estimated_time": "Variable",
+      "official_links": [
+        {
+          "label": "Dirección General de Escuelas (PBA) — a confirmar URL",
+          "url": "https://www.abc.gob.ar (VERIFICAR sección educación especial)",
+          "entity": "Provincia de Buenos Aires"
+        }
+      ],
+      "local_contacts": [
+        {
+          "entity": "Región educativa / Inspección de Educación Especial San Pedro",
+          "description": "Dato a relevar en el relevamiento local",
+          "phone": "a relevar"
+        }
+      ],
+      "last_reviewed_at": "2026-08-18",
+      "keywords": ["integracion", "escuela", "maestro integrador", "ppi", "educacion especial", "apoyo"]
+    },
+    {
+      "id": "cobertura-terapias",
+      "title": "Cobertura de terapias (obra social)",
+      "summary": "Cómo pedirle a la obra social la cobertura de las terapias que indica el equipo médico.",
+      "category": "salud",
+      "audience": "Familias con niños/as con CUD y obra social (IOMA, privadas, etc.)",
+      "depends_on": ["cud"],
+      "requirements": [
+        { "document": "CUD vigente", "detail": "La obra social está obligada a cubrir prestaciones vinculadas", "required": true },
+        { "document": "Indicación médica de las terapias", "detail": "Frecuencia, tipo y profesional", "required": true },
+        { "document": "Presupuestos de los prestadores", "detail": "Según lo que pida cada obra social", "required": false }
+      ],
+      "steps": [
+        {
+          "order": 1,
+          "title": "Tené el CUD y la indicación médica",
+          "description": "Sin esto, la obra social no procesa.",
+          "where": "—",
+          "duration": "—"
+        },
+        {
+          "order": 2,
+          "title": "Presentá el pedido ante tu obra social",
+          "description": "Completá el formulario de autorización y adjuntá la documentación.",
+          "where": "IOMA / obra social correspondiente (verificar canal)",
+          "duration": "—"
+        },
+        {
+          "order": 3,
+          "title": "Seguimiento de la autorización",
+          "description": "La obra social debe responder en plazos establecidos (verificar normativa vigente).",
+          "where": "Obra social",
+          "duration": "—"
+        },
+        {
+          "order": 4,
+          "title": "Si la niegan, apelar",
+          "description": "Existen recursos para apelar la negativa (detalle legal a verificar).",
+          "where": "Obra social / ente regulador",
+          "duration": "—"
+        }
+      ],
+      "estimated_time": "Variable",
+      "official_links": [
+        {
+          "label": "IOMA — Inicio",
+          "url": "https://www.ioma.gba.gob.ar",
+          "entity": "IOMA (PBA)"
+        }
+      ],
+      "local_contacts": [
+        {
+          "entity": "Delegación IOMA San Pedro (a confirmar)",
+          "description": "Dato a relevar",
+          "phone": "a relevar"
+        }
+      ],
+      "last_reviewed_at": "2026-08-18",
+      "keywords": ["terapias", "obra social", "ioma", "cobertura", "autorizacion", "prestaciones"]
+    },
+    {
+      "id": "estimulacion-temprana",
+      "title": "Estimulación temprana",
+      "summary": "Cómo acceder a estimulación temprana (0 a 6 años): primera evaluación, inicio del tratamiento y cobertura.",
+      "category": "salud",
+      "audience": "Familias de niños/as de 0 a 6 años con TEA, discapacidad motriz o retrasos en el desarrollo",
+      "depends_on": [],
+      "requirements": [
+        { "document": "Derivación médica", "detail": "Pediatra o neurólogo infantil", "required": true },
+        { "document": "Estudios o informes previos", "detail": "Si ya existen (audiológico, neurológico, etc.)", "required": false }
+      ],
+      "steps": [
+        {
+          "order": 1,
+          "title": "Consultá con el pediatra",
+          "description": "Contale las señales de alerta o dudas sobre el desarrollo y pedile la derivación.",
+          "where": "Pediatra de cabecera / salita / hospital local",
+          "duration": "—"
+        },
+        {
+          "order": 2,
+          "title": "Evaluación por un equipo",
+          "description": "Psicomotricidad, fonoaudiología, psicología u otros según lo que indique el médico.",
+          "where": "Centro de salud / consultorio (a relevar en San Pedro)",
+          "duration": "—"
+        },
+        {
+          "order": 3,
+          "title": "Iniciá el tratamiento",
+          "description": "La estimulación temprana suele combinar varias terapias semanales.",
+          "where": "Centro educativo terapéutico / consultorio",
+          "duration": "—"
+        },
+        {
+          "order": 4,
+          "title": "Si necesitás cobertura",
+          "description": "Con CUD podés pedir la cobertura a la obra social. Ver el trámite 'cobertura-terapias'.",
+          "where": "Obra social (IOMA / privada)",
+          "duration": "—"
+        }
+      ],
+      "estimated_time": "Variable",
+      "official_links": [],
+      "local_contacts": [
+        {
+          "entity": "Hospital / sala de salud de San Pedro (a relevar)",
+          "description": "Confirmar si hay servicio de estimulación temprana o derivación",
+          "phone": "a relevar"
+        }
+      ],
+      "last_reviewed_at": "2026-08-18",
+      "keywords": ["estimulacion", "temprana", "bebes", "primera infancia", "psicomotricidad", "desarrollo"]
+    },
+    {
+      "id": "transporte-escolar",
+      "title": "Transporte escolar gratuito",
+      "summary": "Cómo solicitar el transporte escolar para estudiantes con discapacidad cuando la escuela queda lejos o hay dificultades de movilidad.",
+      "category": "educacion",
+      "audience": "Familias de niños/as con CUD que asisten a la escuela",
+      "depends_on": ["cud"],
+      "requirements": [
+        { "document": "CUD vigente", "detail": "Requisito para el programa de transporte", "required": true },
+        { "document": "Certificado de escolaridad", "detail": "Emitido por la escuela a la que asiste", "required": true },
+        { "document": "Datos de domicilio", "detail": "Para evaluar el recorrido", "required": true }
+      ],
+      "steps": [
+        {
+          "order": 1,
+          "title": "Tener el CUD vigente",
+          "description": "Sin CUD no se puede acceder al beneficio.",
+          "where": "Ver trámite 'cud'",
+          "duration": "—"
+        },
+        {
+          "order": 2,
+          "title": "Solicitarlo en la escuela",
+          "description": "La escuela inicia o acompaña el pedido ante el organismo correspondiente.",
+          "where": "Escuela del niño/a (directivos)",
+          "duration": "—"
+        },
+        {
+          "order": 3,
+          "title": "Presentar la documentación",
+          "description": "CUD, certificado de escolaridad y domicilio. (Circuito exacto a relevar: municipal y/o provincial)",
+          "where": "Organismo que corresponda (a relevar en San Pedro)",
+          "duration": "—"
+        },
+        {
+          "order": 4,
+          "title": "Se evalúa y asigna el servicio",
+          "description": "Se define el recorrido y el medio de transporte (remis, combi, etc.).",
+          "where": "—",
+          "duration": "Variable"
+        }
+      ],
+      "estimated_time": "Variable",
+      "official_links": [
+        {
+          "label": "Dirección General de Escuelas (PBA) — a confirmar sección transporte",
+          "url": "https://www.abc.gob.ar (VERIFICAR sección transporte escolar)",
+          "entity": "Provincia de Buenos Aires"
+        }
+      ],
+      "local_contacts": [
+        {
+          "entity": "Municipalidad de San Pedro / área de discapacidad (a relevar)",
+          "description": "Suele ser la puerta de entrada del pedido local",
+          "phone": "a relevar"
+        }
+      ],
+      "last_reviewed_at": "2026-08-18",
+      "keywords": ["transporte", "colectivo", "escolar", "viaje", "combi", "remis", "movilidad"]
+    }
+  ]
+}

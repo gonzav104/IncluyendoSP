@@ -1,0 +1,98 @@
+# =============================================================================
+# .gitignore — Incluyendo SP (React + Vite)
+# Generado para mantener limpio el repo en GitHub
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Dependencias
+# -----------------------------------------------------------------------------
+node_modules/
+.pnp
+.pnp.js
+
+# -----------------------------------------------------------------------------
+# Salidas de compilación / build
+# -----------------------------------------------------------------------------
+dist/
+dist-ssr/
+build/
+*.local
+
+# -----------------------------------------------------------------------------
+# Archivos de entorno y claves (NUNCA commitear secretos)
+# -----------------------------------------------------------------------------
+.env
+.env.local
+.env.*.local
+.env.*.*.local
+
+# -----------------------------------------------------------------------------
+# Logs, cache y artefactos de herramientas
+# -----------------------------------------------------------------------------
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.eslintcache
+.stylelintcache
+.vitest-cache/
+coverage/
+.tsbuildinfo
+
+# -----------------------------------------------------------------------------
+# Archivos del sistema operativo
+# -----------------------------------------------------------------------------
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# -----------------------------------------------------------------------------
+# Configuración de editores / IDE (personal, no del proyecto)
+# -----------------------------------------------------------------------------
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json.example
+.idea/
+*.swp
+*.swo
+*~
+
+# -----------------------------------------------------------------------------
+# Archivos Markdown de documentación interna / notas temporales
+# Permitimos SOLO README.md en la raíz; el resto se ignora
+# -----------------------------------------------------------------------------
+*.md
+!README.md
+
+# -----------------------------------------------------------------------------
+# Archivos temporales de desarrollo / prompts / notas sueltas
+# -----------------------------------------------------------------------------
+*.tmp
+*.temp
+*.bak
+*.log
+*.pid
+*.seed
+*.pid.lock
+dev-notes/
+docs/internas/
+.prompts/
+.claude/
+.cursor/
+
+# -----------------------------------------------------------------------------
+# Testing / Playwright / Cypress (artefactos locales)
+# -----------------------------------------------------------------------------
+playwright-report/
+test-results/
+cypress/videos/
+cypress/screenshots/
+
+# -----------------------------------------------------------------------------
+# Miscelánea
+# -----------------------------------------------------------------------------
+*.tsbuildinfo
+.turbo/
+.vercel
+.netlify
