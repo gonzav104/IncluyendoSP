@@ -149,7 +149,7 @@ export default function SuggestionModal({ onClose }) {
 
               <div>
                 <label htmlFor="contact_info" className={LABEL_CLASSES}>
-                  Información de contacto
+                  Contacto de la institución (si lo sabés)
                 </label>
                 <input
                   id="contact_info"
@@ -157,7 +157,7 @@ export default function SuggestionModal({ onClose }) {
                   type="text"
                   value={form.contact_info}
                   onChange={handleFieldChange}
-                  placeholder="Ej: teléfono o dirección"
+                  placeholder="Ej: teléfono o dirección de la institución"
                   className={FIELD_CLASSES}
                 />
               </div>

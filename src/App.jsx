@@ -68,7 +68,7 @@ function App() {
   const [query, setQuery] = useState('')
   const [filters, setFilters] = useState(DEFAULT_FILTERS)
   const [openFilter, setOpenFilter] = useState(null)
-  const { institutions, status: institutionsStatus, error: institutionsError } = useInstitutions()
+  const { institutions, status: institutionsStatus, error: institutionsError, load } = useInstitutions()
   const [suggestionOpen, setSuggestionOpen] = useState(false)
 
   // Cierra el menú de filtros al hacer clic en cualquier otro lado.
@@ -265,9 +265,20 @@ function App() {
               ) : (
                 <>
                   {institutionsStatus === 'error' && (
-                    <div className="mt-4 rounded-xl border border-amber-200 bg-amber-50 px-4 py-2.5 text-sm font-medium text-amber-700">
-                      No se pudo conectar con la API ({institutionsError}) — mostrando datos
-                      locales de respaldo.
+                    <div className="mt-4 flex flex-wrap items-center gap-3 rounded-xl border border-amber-200 bg-amber-50 px-4 py-2.5 text-sm font-medium text-amber-700">
+                      <span>
+                        No se pudo conectar con la API ({institutionsError}) — mostrando datos
+                        locales de respaldo.
+                      </span>
+                      <button
+                        type="button"
+                        onClick={load}
+                        disabled={institutionsStatus === 'loading'}
+                        className="ml-auto inline-flex items-center gap-1.5 rounded-lg border border-amber-300 bg-white px-3 py-1 text-xs font-bold text-amber-700 transition-colors hover:bg-amber-100 disabled:opacity-50"
+                      >
+                        <RefreshCw size={12} className={institutionsStatus === 'loading' ? 'animate-spin' : ''} />
+                        Reintentar
+                      </button>
                     </div>
                   )}
                   <p className="mt-6 text-xs font-semibold text-slate-400">

@@ -58,7 +58,6 @@ IncluyendoSP/
 │   └── logo_incluyendosp.png     # Logo servido estáticamente
 ├── src/
 │   ├── components/               # UI atómica: tarjetas, modales, filtros, chat
-│   │   ├── App.jsx               # (ver abajo)
 │   │   ├── InstitutionCard.jsx   # Tarjeta de institución en la grilla
 │   │   ├── InstitutionModal.jsx  # Ficha completa con datos + mapa
 │   │   ├── InstitutionMap.jsx    # Mapa Leaflet/OSM con marcador
