@@ -18,7 +18,7 @@
         "neighborhood": null,
         "city": "San Pedro",
         "postal_code": "2930",
-        "coordinates": null
+        "coordinates": { "lat": -33.6748328, "lng": -59.6726031 }
       },
       "contact": { 
         "phone": "03329 42-9185", 
@@ -52,7 +52,7 @@
         "neighborhood": null,
         "city": "San Pedro",
         "postal_code": "2930",
-        "coordinates": null
+        "coordinates": { "lat": -33.6828729, "lng": -59.6617978 }
       },
       "contact": { 
         "phone": "3329 42-5441", 
@@ -86,7 +86,7 @@
         "neighborhood": null,
         "city": "San Pedro",
         "postal_code": "2930",
-        "coordinates": null
+        "coordinates": { "lat": -33.6785792, "lng": -59.6613711 }
       },
       "contact": { 
         "phone": "+54 3329 56-0912", 
@@ -120,7 +120,7 @@
         "neighborhood": null,
         "city": "San Pedro",
         "postal_code": "2930",
-        "coordinates": null
+        "coordinates": { "lat": -33.6862304, "lng": -59.6645748 }
       },
       "contact": { 
         "phone": "03329 42-6000 / WA: 03329 60-2559", 
@@ -154,7 +154,7 @@
         "neighborhood": null,
         "city": "San Pedro",
         "postal_code": "2930",
-        "coordinates": null
+        "coordinates": { "lat": -33.6849544, "lng": -59.6724031 }
       },
       "contact": { 
         "phone": "03329 42-5207", 

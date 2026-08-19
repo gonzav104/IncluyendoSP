@@ -13,7 +13,7 @@ import { useCallback, useRef, useState } from 'react'
 // envía el historial acumulado dentro de "prompt", por ejemplo:
 //   "Historial: [User: hola, IA: hola en que ayudo] - Nueva pregunta: [Tengo un hijo de 4 años]"
 
-const WEBHOOK_URL = 'http://localhost:3000/api/assistant'
+const WEBHOOK_URL = `${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/api/assistant`
 
 // Extrae el markdown de la respuesta del webhook, venga como quiera.
 const toMarkdown = (data) => {

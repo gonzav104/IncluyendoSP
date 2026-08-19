@@ -1,12 +1,13 @@
 import { useEffect, useMemo, useState } from 'react'
-import { BadgeCheck, Building2, ClipboardList, Mail, Plus, RefreshCw, Search, Sparkles } from 'lucide-react'
-import institutionsData from './data/institutions.json'
+import { BadgeCheck, Building2, ClipboardList, Plus, RefreshCw, Search, Sparkles } from 'lucide-react'
 import proceduresData from './data/procedures.json'
 import InstitutionCard from './components/InstitutionCard.jsx'
 import InstitutionModal from './components/InstitutionModal.jsx'
 import FilterDropdown from './components/FilterDropdown.jsx'
 import ProcedureFolder from './components/ProcedureFolder.jsx'
 import Assistant from './components/Assistant.jsx'
+import SuggestionModal from './components/SuggestionModal.jsx'
+import useInstitutions from './hooks/useInstitutions'
 import { SPECIALTY_LABELS, specialtyLabel } from './lib/labels'
 
 // Incluyendo SP — estilo "Inclusivo y Calmo": salud moderna, minimalista.
@@ -18,7 +19,6 @@ const TABS = [
   { id: 'asistente', label: 'Asistente IA', icon: Sparkles },
 ]
 
-const { institutions } = institutionsData
 const { procedures } = proceduresData
 
 const FILTERS = [
@@ -68,6 +68,8 @@ function App() {
   const [query, setQuery] = useState('')
   const [filters, setFilters] = useState(DEFAULT_FILTERS)
   const [openFilter, setOpenFilter] = useState(null)
+  const { institutions, status: institutionsStatus, error: institutionsError } = useInstitutions()
+  const [suggestionOpen, setSuggestionOpen] = useState(false)
 
   // Cierra el menú de filtros al hacer clic en cualquier otro lado.
   useEffect(() => {
@@ -120,7 +122,7 @@ function App() {
 
       return true
     })
-  }, [query, filters])
+  }, [query, filters, institutions])
 
   const hasActiveFilters =
     query.trim() !== '' || Object.values(filters).some((value) => value !== 'all')
@@ -156,15 +158,14 @@ function App() {
           </div>
 
           {/* --- Lado Derecho: Llamado a la acción --- */}
-          <a
-            href="mailto:hola@incluyendosp.com?subject=Sugerencia%20de%20institución&body=Hola,%20quiero%20sugerir%20una%20institución%20para%20Incluyendo%20SP:%0A%0A%3Cnombre%3E%0A%3Cdirección%3E%0A%3Cteléfono%3E%0A%3Cespecialidad%3E%0A%0AGracias."
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            type="button"
+            onClick={() => setSuggestionOpen(true)}
             className="hidden sm:inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-2.5 text-sm font-medium text-slate-700 transition-colors hover:border-teal-300 hover:bg-teal-50 hover:text-teal-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500/30"
           >
             <Plus size={18} />
             Sugerir institución
-          </a>
+          </button>
         </div>
       </header>
 
@@ -252,28 +253,47 @@ function App() {
               </div>
 
               {/* Resultados */}
-              <p className="mt-6 text-xs font-semibold text-slate-400">
-                {filteredInstitutions.length} de {institutions.length} instituciones
-              </p>
-              {filteredInstitutions.length > 0 ? (
-                <div className="mt-2 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                  {filteredInstitutions.map((institution) => (
-                    <InstitutionCard
-                      key={institution.id}
-                      institution={institution}
-                      onOpen={() => setSelected(institution)}
-                    />
-                  ))}
-                </div>
-              ) : (
-                <div className="mt-2 rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-10 text-center">
+              {institutionsStatus === 'loading' && institutions.length === 0 ? (
+                <div className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-10 text-center">
                   <p className="font-display text-lg font-extrabold text-slate-700">
-                    No hay fichas que coincidan
+                    Cargando instituciones…
                   </p>
                   <p className="mt-1 text-sm font-medium text-slate-500">
-                    Probá con otro término o limpiá los filtros
+                    Consultando el directorio
                   </p>
                 </div>
+              ) : (
+                <>
+                  {institutionsStatus === 'error' && (
+                    <div className="mt-4 rounded-xl border border-amber-200 bg-amber-50 px-4 py-2.5 text-sm font-medium text-amber-700">
+                      No se pudo conectar con la API ({institutionsError}) — mostrando datos
+                      locales de respaldo.
+                    </div>
+                  )}
+                  <p className="mt-6 text-xs font-semibold text-slate-400">
+                    {filteredInstitutions.length} de {institutions.length} instituciones
+                  </p>
+                  {filteredInstitutions.length > 0 ? (
+                    <div className="mt-2 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                      {filteredInstitutions.map((institution) => (
+                        <InstitutionCard
+                          key={institution.id}
+                          institution={institution}
+                          onOpen={() => setSelected(institution)}
+                        />
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="mt-2 rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-10 text-center">
+                      <p className="font-display text-lg font-extrabold text-slate-700">
+                        No hay fichas que coincidan
+                      </p>
+                      <p className="mt-1 text-sm font-medium text-slate-500">
+                        Probá con otro término o limpiá los filtros
+                      </p>
+                    </div>
+                  )}
+                </>
               )}
             </div>
           ) : activeTab === 'guia' ? (
@@ -304,6 +324,9 @@ function App() {
       {selected && (
         <InstitutionModal institution={selected} onClose={() => setSelected(null)} />
       )}
+
+      {/* ===== Modal de sugerencia ===== */}
+      {suggestionOpen && <SuggestionModal onClose={() => setSuggestionOpen(false)} />}
     </div>
   )
 }

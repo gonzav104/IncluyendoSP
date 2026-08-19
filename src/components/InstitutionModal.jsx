@@ -24,6 +24,7 @@ import {
   specialtyLabel,
   typeLabel,
 } from '../lib/labels'
+import InstitutionMap from './InstitutionMap.jsx'
 
 // Modal de detalle — estilo app médica: panel blanco redondeado,
 // sombra suave difuminada, secciones con rótulos calmos.
@@ -201,6 +202,14 @@ export default function InstitutionModal({ institution, onClose }) {
               )}
             </ul>
           </section>
+
+          {/* ===== Mapa ===== */}
+          {institution?.address?.coordinates?.lat && institution?.address?.coordinates?.lng && (
+            <section>
+              <h3 className={SECTION_TITLE}>Ubicación</h3>
+              <InstitutionMap institution={institution} />
+            </section>
+          )}
 
           {/* ===== Servicios ===== */}
           {services?.length > 0 && (
