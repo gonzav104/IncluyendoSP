@@ -1,18 +1,19 @@
 import { useCallback, useRef, useState } from 'react'
 
-// Asistente conversacional — conexión al webhook de n8n.
+// Asistente conversacional — conexión al BFF (incluyendo-sp-api).
 //
-// CONTRATO DEL WEBHOOK (n8n):
-//   POST https://lito104.app.n8n.cloud/webhook-test/orientar
-//   body: { "pregunta": "<contexto con historial + nueva pregunta>" }
+// CONTRATO DEL ENDPOINT (BFF):
+//   POST http://localhost:3000/api/assistant
+//   body: { "prompt": "<contexto con historial + nueva pregunta>" }
+//   El backend reenvía el prompt a n8n y devuelve su respuesta.
 //   response 200: la IA responde Markdown (string plano o JSON con clave
 //   de texto: respuesta | response | message | text | output)
 //
 // La memoria del chat se resuelve SIN tocar el backend: cada mensaje
-// envía el historial acumulado dentro de "pregunta", por ejemplo:
+// envía el historial acumulado dentro de "prompt", por ejemplo:
 //   "Historial: [User: hola, IA: hola en que ayudo] - Nueva pregunta: [Tengo un hijo de 4 años]"
 
-const WEBHOOK_URL = 'https://lito104.app.n8n.cloud/webhook-test/orientar'
+const WEBHOOK_URL = 'http://localhost:3000/api/assistant'
 
 // Extrae el markdown de la respuesta del webhook, venga como quiera.
 const toMarkdown = (data) => {
@@ -47,7 +48,7 @@ export default function useAssistant() {
       .slice(0, -1)
       .map((message) => `[${message.role === 'user' ? 'User' : 'IA'}: ${message.content}]`)
       .join(' ')
-    const pregunta = `Historial: ${historyPart} - Nueva pregunta: [${question}]`
+    const prompt = `Historial: ${historyPart} - Nueva pregunta: [${question}]`
 
     setStatus('loading')
     setError(null)
@@ -55,7 +56,7 @@ export default function useAssistant() {
       const res = await fetch(WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ pregunta }),
+        body: JSON.stringify({ prompt }),
       })
       if (!res.ok) {
         throw new Error(`El servicio respondió con estado ${res.status}`)

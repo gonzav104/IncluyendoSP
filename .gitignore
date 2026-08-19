@@ -26,6 +26,12 @@ build/
 .env.*.local
 .env.*.*.local
 
+*.json
+!package.json
+!package-lock.json
+!tsconfig.json
+!jsconfig.json
+
 # -----------------------------------------------------------------------------
 # Logs, cache y artefactos de herramientas
 # -----------------------------------------------------------------------------
