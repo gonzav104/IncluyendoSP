@@ -137,7 +137,7 @@ function App() {
     <div className="min-h-screen bg-paper text-ink">
       {/* ===== Header ===== */}
       <header className="border-b border-slate-200 bg-white">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4">
+        <div className="mx-auto flex max-w-6xl flex-col items-stretch gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
           {/* --- Lado Izquierdo: Bloque de Identidad --- */}
           <div className="flex items-center gap-4">
             <img
@@ -161,7 +161,7 @@ function App() {
           <button
             type="button"
             onClick={() => setSuggestionOpen(true)}
-            className="hidden sm:inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-2.5 text-sm font-medium text-slate-700 transition-colors hover:border-teal-300 hover:bg-teal-50 hover:text-teal-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500/30"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-2.5 text-sm font-medium text-slate-700 transition-colors hover:border-teal-300 hover:bg-teal-50 hover:text-teal-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500/30 sm:w-auto"
           >
             <Plus size={18} />
             Sugerir institución
