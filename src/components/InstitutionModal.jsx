@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import {
   CalendarClock,
   CircleCheck,
@@ -25,6 +25,7 @@ import {
   typeLabel,
 } from '../lib/labels'
 import InstitutionMap from './InstitutionMap.jsx'
+import useFocusTrap from '../hooks/useFocusTrap'
 
 // Modal de detalle — estilo app médica: panel blanco redondeado,
 // sombra suave difuminada, secciones con rótulos calmos.
@@ -41,6 +42,9 @@ const CUD_ICON = {
 const chip = 'rounded-full bg-slate-100 px-3 py-1 text-sm font-medium text-slate-700'
 
 export default function InstitutionModal({ institution, onClose }) {
+  const dialogRef = useRef(null)
+  useFocusTrap(dialogRef)
+
   useEffect(() => {
     const onKey = (event) => {
       if (event.key === 'Escape') onClose()
@@ -72,6 +76,7 @@ export default function InstitutionModal({ institution, onClose }) {
       onClick={onClose}
     >
       <div
+        ref={dialogRef}
         role="dialog"
         aria-modal="true"
         aria-label={`Ficha: ${name}`}

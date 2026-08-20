@@ -1,45 +1,53 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import institutionsData from '../data/institutions.json'
+import { API_ENDPOINTS, request } from '../lib/api'
+import { normalizeInstitution } from '../lib/normalizers'
 
-// Directorio de instituciones — fuente principal: BFF (incluyendo-sp-api).
+// Directorio de instituciones — local-first (D19).
 //
 // CONTRATO DEL ENDPOINT (BFF):
 //   GET ${VITE_API_URL}/api/institutions
 //   response 200: array de instituciones con el mismo formato que
 //   src/data/institutions.json (specialties, coverage, accessibility, etc.)
 //
-// Estrategia de fallback: si el backend está caído, cargamos los datos
-// locales de src/data/institutions.json para no romper la demo.
-
-const API_URL = `${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/api/institutions`
+// Estrategia: la data local es la fuente INMEDIATA (status 'success' desde
+// el montaje, sin pantalla de carga); el remoto se carga en background y,
+// si responde, hace swap silencioso con data normalizada; si falla, se
+// mantiene la local con `isLocal: true` y el error queda disponible para el
+// banner amber (FR-PF-4). Abort en cleanup (kind === 'aborted' se ignora).
 
 export default function useInstitutions() {
-  const [institutions, setInstitutions] = useState([])
-  const [status, setStatus] = useState('idle') // idle | loading | success | error
+  const [institutions, setInstitutions] = useState(() =>
+    institutionsData.institutions.map(normalizeInstitution),
+  )
+  const [status, setStatus] = useState('success') // idle | loading | success | error
   const [error, setError] = useState(null)
+  const [isLocal, setIsLocal] = useState(true)
+  const controllerRef = useRef(null)
 
   const load = useCallback(async () => {
-    setStatus('loading')
     setError(null)
+    const controller = new AbortController()
+    controllerRef.current = controller
     try {
-      const res = await fetch(API_URL)
-      if (!res.ok) {
-        throw new Error(`El servicio respondió con estado ${res.status}`)
-      }
-      const data = await res.json()
-      setInstitutions(Array.isArray(data) ? data : [])
+      const data = await request(API_ENDPOINTS.institutions, { signal: controller.signal })
+      setInstitutions(data.map(normalizeInstitution))
+      setIsLocal(false)
       setStatus('success')
     } catch (err) {
-      // Fallback a datos locales: la demo sigue funcionando sin backend.
-      setInstitutions(institutionsData.institutions)
-      setError(err.message || 'No se pudo conectar con la API')
-      setStatus('error')
+      // Abort por unmount: no tocar estado
+      if (err?.kind === 'aborted') return
+      // Fallback: la demo sigue con la data local, el banner amber avisa
+      setError(err?.message || 'No se pudo conectar con la API')
+      setIsLocal(true)
+      setStatus('success')
     }
   }, [])
 
   useEffect(() => {
     load()
+    return () => controllerRef.current?.abort()
   }, [load])
 
-  return { institutions, status, error, load }
+  return { institutions, status, error, isLocal, load }
 }

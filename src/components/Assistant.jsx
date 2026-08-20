@@ -58,17 +58,17 @@ export default function Assistant() {
           </div>
         )}
 
-        {messages.map((message, index) =>
+        {messages.map((message) =>
           message.role === 'user' ? (
             <div
-              key={index}
+              key={message.id}
               className="ml-auto w-fit max-w-[80%] rounded-2xl rounded-br-md bg-teal-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm"
             >
               {message.content}
             </div>
           ) : (
             <div
-              key={index}
+              key={message.id}
               className="w-fit max-w-[85%] rounded-2xl rounded-bl-md border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700 shadow-sm"
             >
               <AssistantMarkdown>{message.content}</AssistantMarkdown>

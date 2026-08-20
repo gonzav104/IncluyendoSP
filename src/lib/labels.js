@@ -4,69 +4,46 @@ import {
   Bath,
   Type,
 } from 'lucide-react'
+import {
+  ACCESSIBILITY_META,
+  CUD_LABELS,
+  PROCEDURE_CATEGORY_LABELS,
+  SPECIALTY_LABELS,
+  STATUS_LABELS,
+  TYPE_LABELS,
+  categoryLabel,
+  specialtyLabel,
+  typeLabel,
+} from './label-maps'
 
-// Traducción de códigos del JSON a etiquetas legibles + helpers de formato.
-// El JSON guarda códigos slug ("escuela-primaria", "tea") para filtrar;
-// acá se convierten a lo que ve la familia.
+// Capa UI sobre los maps puros de label-maps.js (única fuente de truth):
+// acá se acoplan los iconos de lucide y los helpers de formato que usan
+// los componentes. Re-exporta los maps para no romper los imports
+// existentes (App, InstitutionModal, ProcedureFolder, InstitutionCard).
 
-export const TYPE_LABELS = {
-  'escuela-primaria': 'Escuela primaria',
-  'jardin-infantes': 'Jardín de infantes',
-  'centro-educativo-terapeutico': 'Centro educativo terapéutico',
-  'centro-dia': 'Centro de día',
-  'salita': 'Salita / Centro de salud',
-  'hospital': 'Hospital',
-  'consultorio-privado': 'Consultorio privado',
-  'profesional-independiente': 'Profesional independiente',
-  'asociacion': 'Asociación',
-  'organismo-publico': 'Organismo público',
+export {
+  ACCESSIBILITY_META,
+  CUD_LABELS,
+  PROCEDURE_CATEGORY_LABELS,
+  SPECIALTY_LABELS,
+  STATUS_LABELS,
+  TYPE_LABELS,
+  categoryLabel,
+  specialtyLabel,
+  typeLabel,
 }
 
-export const SPECIALTY_LABELS = {
-  'tea': 'TEA',
-  'discapacidad-motriz': 'Discapacidad motriz',
-  'estimulacion-temprana': 'Estimulación temprana',
-  'fonoaudiologia': 'Fonoaudiología',
-  'psicopedagogia': 'Psicopedagogía',
-  'terapia-ocupacional': 'Terapia ocupacional',
-  'kinesiologia': 'Kinesiología',
-  'psicologia': 'Psicología',
-  'educacion-especial': 'Educación especial',
-  'integracion-escolar': 'Integración escolar',
-  'neurologia': 'Neurología',
-  'pediatria': 'Pediatría',
+const ICONS_BY_KEY = {
+  wheelchair_ramp: Accessibility,
+  adapted_bathroom: Bath,
+  elevator: ArrowUpDown,
+  signage_simplified: Type,
 }
 
-export const CUD_LABELS = {
-  'yes': 'Acepta CUD',
-  'no': 'No acepta CUD',
-  'unknown': 'CUD a confirmar',
-}
-
-export const STATUS_LABELS = {
-  'verified': 'Verificado',
-  'pending': 'Pendiente de verificación',
-  'outdated': 'Dato desactualizado',
-}
-
-export const PROCEDURE_CATEGORY_LABELS = {
-  'salud': 'Salud',
-  'educacion': 'Educación',
-  'otros': 'Otros',
-}
-
-export const ACCESSIBILITY_ITEMS = [
-  { key: 'wheelchair_ramp', label: 'Rampa para silla de ruedas', icon: Accessibility },
-  { key: 'adapted_bathroom', label: 'Baño adaptado', icon: Bath },
-  { key: 'elevator', label: 'Ascensor', icon: ArrowUpDown },
-  { key: 'signage_simplified', label: 'Señalética simplificada', icon: Type },
-]
-
-const label = (map, code) => map[code] ?? code
-
-export const typeLabel = (code) => label(TYPE_LABELS, code)
-export const specialtyLabel = (code) => label(SPECIALTY_LABELS, code)
-export const categoryLabel = (code) => label(PROCEDURE_CATEGORY_LABELS, code)
+export const ACCESSIBILITY_ITEMS = ACCESSIBILITY_META.map((item) => ({
+  ...item,
+  icon: ICONS_BY_KEY[item.key] ?? Accessibility,
+}))
 
 export function isVerified(institution) {
   return institution?.verification?.status === 'verified'

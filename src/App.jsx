@@ -1,14 +1,18 @@
-import { useEffect, useMemo, useState } from 'react'
+import { Suspense, lazy, useEffect, useMemo, useState } from 'react'
 import { BadgeCheck, Building2, ClipboardList, Plus, RefreshCw, Search, Sparkles } from 'lucide-react'
 import proceduresData from './data/procedures.json'
 import InstitutionCard from './components/InstitutionCard.jsx'
-import InstitutionModal from './components/InstitutionModal.jsx'
 import FilterDropdown from './components/FilterDropdown.jsx'
 import ProcedureFolder from './components/ProcedureFolder.jsx'
-import Assistant from './components/Assistant.jsx'
 import SuggestionModal from './components/SuggestionModal.jsx'
 import useInstitutions from './hooks/useInstitutions'
 import { SPECIALTY_LABELS, specialtyLabel } from './lib/labels'
+
+// Code-split (FR-PF-1): el modal y el asistente cargan en chunks separados;
+// el bundle inicial queda sin leaflet/react-markdown. ProcedureFolder se
+// mantiene estático (BR-PF-2): la guía es contenido crítico y liviano.
+const InstitutionModal = lazy(() => import('./components/InstitutionModal.jsx'))
+const Assistant = lazy(() => import('./components/Assistant.jsx'))
 
 // Incluyendo SP — estilo "Inclusivo y Calmo": salud moderna, minimalista.
 // Directorio con buscador + filtros, guía de trámites y asistente conversacional.
@@ -61,6 +65,19 @@ const FILTERS = [
 ]
 
 const DEFAULT_FILTERS = { specialty: 'all', age: 'all', coverage: 'all', verified: 'all' }
+
+// Fallback de Suspense para los chunks lazy (FR-PF-1): spinner teal
+function SpinnerFallback() {
+  return (
+    <div className="flex items-center justify-center py-10">
+      <span
+        role="status"
+        aria-label="Cargando"
+        className="size-8 animate-spin rounded-full border-4 border-teal-200 border-t-teal-600"
+      />
+    </div>
+  )
+}
 
 function App() {
   const [activeTab, setActiveTab] = useState('directorio')
@@ -141,7 +158,7 @@ function App() {
           {/* --- Lado Izquierdo: Bloque de Identidad --- */}
           <div className="flex items-center gap-4">
             <img
-              src="/logo_incluyendosp.png"
+              src="/logo-header.png"
               alt="Logo Incluyendo SP"
               className="h-24 w-auto object-contain"
             />
@@ -264,7 +281,7 @@ function App() {
                 </div>
               ) : (
                 <>
-                  {institutionsStatus === 'error' && (
+                  {institutionsError && (
                     <div className="mt-4 flex flex-wrap items-center gap-3 rounded-xl border border-amber-200 bg-amber-50 px-4 py-2.5 text-sm font-medium text-amber-700">
                       <span>
                         No se pudo conectar con la API ({institutionsError}) — mostrando datos
@@ -326,14 +343,18 @@ function App() {
             </div>
           ) : (
             /* ================= ASISTENTE IA ================= */
-            <Assistant />
+            <Suspense fallback={<SpinnerFallback />}>
+              <Assistant />
+            </Suspense>
           )}
         </section>
       </main>
 
-      {/* ===== Modal de institución ===== */}
+      {/* ===== Modal de institución (lazy) ===== */}
       {selected && (
-        <InstitutionModal institution={selected} onClose={() => setSelected(null)} />
+        <Suspense fallback={<SpinnerFallback />}>
+          <InstitutionModal institution={selected} onClose={() => setSelected(null)} />
+        </Suspense>
       )}
 
       {/* ===== Modal de sugerencia ===== */}

@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Building2, Loader2, Send, Sparkles, X } from 'lucide-react'
+import { API_ENDPOINTS, request } from '../lib/api'
+import useFocusTrap from '../hooks/useFocusTrap'
 
 // Modal de sugerencia de institución — estilo app médica, mismo lenguaje
 // visual que InstitutionModal: panel blanco redondeado, sombra suave,
-// acentos teal. Envía el formulario al BFF (POST /api/suggestions).
-
-const API_URL = `${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/api/suggestions`
+// acentos teal. Envía el formulario al BFF (POST /api/suggestions) con
+// request() (FR-A11-2): parsing defensivo, error claro y abort con timeout.
 
 const FIELD_CLASSES =
   'w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm font-medium text-slate-800 placeholder:text-slate-400 focus:border-teal-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-500/30'
@@ -16,6 +17,9 @@ export default function SuggestionModal({ onClose }) {
   const [form, setForm] = useState({ institution_name: '', specialty: '', contact_info: '' })
   const [status, setStatus] = useState('idle') // idle | loading | success | error
   const [error, setError] = useState(null)
+  const dialogRef = useRef(null)
+  const timerRef = useRef(null)
+  useFocusTrap(dialogRef)
 
   // Cierra con Escape (mismo comportamiento que InstitutionModal)
   useEffect(() => {
@@ -25,6 +29,9 @@ export default function SuggestionModal({ onClose }) {
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   }, [onClose])
+
+  // El cierre automático post-éxito se limpia al desmontar
+  useEffect(() => () => clearTimeout(timerRef.current), [])
 
   // Cierra solo el formulario; con éxito o error, el usuario decide
   const handleFieldChange = (event) => {
@@ -40,25 +47,20 @@ export default function SuggestionModal({ onClose }) {
     setStatus('loading')
     setError(null)
     try {
-      const res = await fetch(API_URL, {
+      await request(API_ENDPOINTS.suggestions, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           institution_name: institutionName,
           specialty: form.specialty.trim() || null,
           contact_info: form.contact_info.trim() || null,
         }),
       })
-      const data = await res.json()
-      if (!res.ok) {
-        throw new Error(data.error || `El servicio respondió con estado ${res.status}`)
-      }
       setStatus('success')
 
       // Agradecimiento breve y cierre automático
-      setTimeout(onClose, 2500)
+      timerRef.current = setTimeout(onClose, 2500)
     } catch (err) {
-      setError(err.message || 'No se pudo enviar la sugerencia')
+      setError(err?.message || 'No se pudo enviar la sugerencia')
       setStatus('error')
     }
   }
@@ -71,6 +73,7 @@ export default function SuggestionModal({ onClose }) {
       onClick={onClose}
     >
       <div
+        ref={dialogRef}
         role="dialog"
         aria-modal="true"
         aria-label="Sugerir institución"
