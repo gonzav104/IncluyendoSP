@@ -22,7 +22,7 @@ Incluyendo SP concentra todo en un solo lugar, con tres herramientas:
 | Markdown | [react-markdown](https://github.com/remarkjs/react-markdown) 10 |
 | Iconos | [lucide-react](https://lucide.dev/) |
 | Mapas | [Leaflet](https://leafletjs.com/) + [react-leaflet](https://react-leaflet.js.org/) (tiles de OpenStreetMap, sin API key) |
-| Backend | [incluyendo-sp-api](../incluyendo-sp-api) (BFF Express + MySQL) |
+| Backend | [incluyendo-sp-api](https://github.com/gonzav104/incluyendo-sp-api) (BFF Express + MySQL) |
 
 ## Instalación y ejecución local
 
@@ -87,10 +87,10 @@ IncluyendoSP/
 
 ## Backend
 
-La app consume el BFF **incluyendo-sp-api** (repositorio hermano en `../incluyendo-sp-api`):
+La app consume el BFF **incluyendo-sp-api** (repositorio hermano en [github.com/gonzav104/incluyendo-sp-api](https://github.com/gonzav104/incluyendo-sp-api)):
 
 - `src/hooks/useInstitutions.js` → `GET /api/institutions` (directorio desde MySQL)
 - `src/hooks/useAssistant.js` → `POST /api/assistant` (chat IA con contexto RAG)
 - `src/components/SuggestionModal.jsx` → `POST /api/suggestions` (sugerencias de la comunidad)
 
-La URL base se configura con `VITE_API_URL` (default en desarrollo: `http://localhost:3000`). Documentación completa de la API en [`incluyendo-sp-api/README.md`](../incluyendo-sp-api/README.md).
+La URL base se configura con `VITE_API_URL` (default en desarrollo: `http://localhost:3000`). Repositorio y documentación completa de la API en [github.com/gonzav104/incluyendo-sp-api](https://github.com/gonzav104/incluyendo-sp-api).
