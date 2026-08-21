@@ -43,6 +43,40 @@ describe('SuggestionModal — robustez y a11y (FR-A11-2)', () => {
     expect(onClose).not.toHaveBeenCalled()
   })
 
+  it('envía el payload como OBJETO (request serializa; sin doble stringify)', async () => {
+    // FR-A11-2 (fix del verify-report): SuggestionModal pasa el body como
+    // OBJETO; request() (lib/api.js) es quien serializa con JSON.stringify.
+    // Con el bug viejo (JSON.stringify adentro del modal) el body enviado era
+    // un STRING JSON anidado: JSON.parse(body) devolvía string, no objeto.
+    const fetchMock = vi.fn().mockResolvedValue(jsonResponse({ ok: true }))
+    vi.stubGlobal('fetch', fetchMock)
+    render(<SuggestionModal onClose={vi.fn()} />)
+
+    fireEvent.change(screen.getByLabelText(/Nombre de la institución/), {
+      target: { value: 'Jardín Nº 903' },
+    })
+    fireEvent.change(screen.getByLabelText(/Especialidad/), {
+      target: { value: 'fonoaudiología' },
+    })
+    fireEvent.change(screen.getByLabelText(/Contacto de la institución/), {
+      target: { value: 'tel 4222-0000' },
+    })
+    fireEvent.click(screen.getByRole('button', { name: 'Enviar sugerencia' }))
+
+    await waitFor(() => expect(fetchMock).toHaveBeenCalled())
+
+    const [url, options] = fetchMock.mock.calls[0]
+    expect(url).toContain('/api/suggestions')
+    expect(options.method).toBe('POST')
+    // request() serializa el objeto: el body es el JSON de UN objeto
+    expect(typeof options.body).toBe('string')
+    expect(JSON.parse(options.body)).toEqual({
+      institution_name: 'Jardín Nº 903',
+      specialty: 'fonoaudiología',
+      contact_info: 'tel 4222-0000',
+    })
+  })
+
   it('respuesta HTML del BFF → mensaje de error claro, sin crashear', async () => {
     vi.stubGlobal(
       'fetch',

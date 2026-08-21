@@ -49,11 +49,14 @@ export default function SuggestionModal({ onClose }) {
     try {
       await request(API_ENDPOINTS.suggestions, {
         method: 'POST',
-        body: JSON.stringify({
+        // El body va como OBJETO: request() (lib/api.js) es quien serializa
+        // con JSON.stringify. Un string aquí se enviaría como JSON anidado
+        // (doble stringify) y express.json() del BFF recibiría vacío.
+        body: {
           institution_name: institutionName,
           specialty: form.specialty.trim() || null,
           contact_info: form.contact_info.trim() || null,
-        }),
+        },
       })
       setStatus('success')
 

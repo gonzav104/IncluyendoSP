@@ -55,7 +55,10 @@ Abrí `http://localhost:5173` en el navegador.
 ```
 IncluyendoSP/
 ├── public/
-│   └── logo_incluyendosp.png     # Logo servido estáticamente
+│   ├── favicon-32.png            # Favicon (derivado del logo, 32×32)
+│   └── logo-header.png           # Logo del header (derivado, alto 96px)
+├── assets-src/
+│   └── logo_incluyendosp.png     # Logo ORIGINAL (fuente de gen:assets; no se deploya)
 ├── src/
 │   ├── components/               # UI atómica: tarjetas, modales, filtros, chat
 │   │   ├── InstitutionCard.jsx   # Tarjeta de institución en la grilla

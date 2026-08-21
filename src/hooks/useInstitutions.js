@@ -26,13 +26,18 @@ export default function useInstitutions() {
   const controllerRef = useRef(null)
 
   const load = useCallback(async () => {
-    setError(null)
+    // D19: durante el fetch background (y el reintento manual) el status pasa
+    // a 'loading' — el botón Reintentar muestra spinner/disabled. El error
+    // previo NO se limpia acá: persiste durante la recarga (banner amber
+    // visible con spinner) y se descarta recién si el remoto responde.
+    setStatus('loading')
     const controller = new AbortController()
     controllerRef.current = controller
     try {
       const data = await request(API_ENDPOINTS.institutions, { signal: controller.signal })
       setInstitutions(data.map(normalizeInstitution))
       setIsLocal(false)
+      setError(null)
       setStatus('success')
     } catch (err) {
       // Abort por unmount: no tocar estado

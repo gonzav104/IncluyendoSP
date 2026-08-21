@@ -3,7 +3,10 @@ import App from './App'
 
 // D19 + FR-PF-4: el directorio local-first mantiene status 'success' aunque
 // el remoto falle — el banner amber debe estar condicionado a `error`, NO a
-// status. El botón Reintentar queda con spinner mientras recarga.
+// status. El botón Reintentar queda con spinner mientras recarga: el hook real
+// (fix del verify-report) setea status 'loading' en load() SIN limpiar el
+// error previo hasta que el remoto responde — el estado mockeado abajo es
+// alcanzable (D19 implementado en useInstitutions.js).
 // FR-PF-1 (T-18): InstitutionModal y Assistant van lazy con Suspense fallback.
 
 const { useInstitutionsMock, modalMock, assistantMock, lazyBlock } = vi.hoisted(() => ({
@@ -71,7 +74,8 @@ describe('App — banner amber local-first (D19)', () => {
   })
 
   it('Reintentar queda con spinner y deshabilitado mientras recarga (loading)', () => {
-    // Recarga con la data local ya visible: el banner persiste con spinner
+    // Estado REAL del hook (D19): load() setea 'loading' y el error previo
+    // persiste hasta que el remoto responde → banner + botón con spinner.
     useInstitutionsMock.mockReturnValue({
       ...baseMock,
       institutions: [{ id: 'x', name: 'Institución local' }],
